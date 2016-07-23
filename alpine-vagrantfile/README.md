@@ -3,6 +3,20 @@ First install vagrant plugin to support Alpine linux `vagrant plugin install vag
 
 DOCKER 1.12 ON ALPINE IS NOT FULLY FUNCTIONAL! WILL UPDATE WHEN SUCCEEDED!
 
+```
+snode1-alpine:~$ docker run -it hello-world
+ERRO[0098] Handler for POST /v1.24/containers/create returned error: No such image: hello-world:latest
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+c04b14da8d14: Pull complete
+Digest: sha256:0256e8a36e2070f7bf2d0b0763dbabdd67798512411de4cdcf9431a1feb60fd9
+Status: Downloaded newer image for hello-world:latest
+ERRO[0100] containerd: start container                   error=oci runtime error: rootfs_linux.go:53: mounting "/dev/mqueue" to rootfs "/var/lib/docker/vfs/dir/a56bc92ecfca901761aefd2b8e850eac0522a746c2fa0b48f71aa98b95cb07f0" caused "no such device" id=dcfe82a11387df432cb0b3904ab85f2e28ae26525c8eb17f3e146d279bc2ff59
+                                                                             ERRO[0100] Create container failed with error: oci runtime error: rootfs_linux.go:53: mounting "/dev/mqueue" to rootfs "/var/lib/docker/vfs/dir/a56bc92ecfca901761aefd2b8e850eac0522a746c2fa0b48f71aa98b95cb07f0" caused "no such device"
+                                                                       ERRO[0101] Handler for POST /v1.24/containers/dcfe82a11387df432cb0b3904ab85f2e28ae26525c8eb17f3e146d279bc2ff59/start returned error: oci runtime error: rootfs_linux.go:53: mounting "/dev/mqueue" to rootfs "/var/lib/docker/vfs/dir/a56bc92ecfca901761aefd2b8e850eac0522a746c2fa0b48f71aa98b95cb07f0" caused "no such device"
+
+```
+
 
 # Start environment
 `vagrant up` This should create 3 alpine linux vm's
