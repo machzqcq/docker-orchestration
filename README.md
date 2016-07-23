@@ -72,7 +72,33 @@ One any manager node in the swarm
 ### Failover
 Test the failover by doing `vagrant halt snode1` for e.g. of course assuming that the service you created above has spawned a container on snode1. As soon as the machine goes down, docker swarm automatically rebalances the cluster and creates new containers and ensures that the serviceability of 4 instances of the service is maintained
 
+# Multiple Services 
+Assuming the swarm is up and running with 2 managers and 1 worker node as above  
 
+### example voting app
+`git clone https://github.com/docker/example-voting-app.git` See the micro-service app architecture on the README for the repo  
+
+## Build and start db service
+`docker service create --replicas 1 --name db -p 5432:5432/tcp postgres:9.4` - Verify `netstat -aln | grep 5432`  
+
+## Build and start redis service
+`docker service create --name redis -p 6379:6379/tcp redis:3.2.1-alpine` - Verify `netstat -aln | grep 6379`  
+
+`docker service ls` list all services and their status  
+`docker service tasks redis` list all tasks for redis i.e. the # of replicas created to serve redis service  
+
+## Build and start vote service
+Step into vote folder and execute `docker build --no-cache -t vote -f Dockerfile.`  
+
+`docker service create --replicas 3 --name vote -p 5000:80 -v ./vote:/app vote:latest python app.py` This will create 3 tasks for the service vote and distributes it across the swarm. There is currently a bug with 1.12.0-rc4, where if the vote image is not available on swarm nodes, then the containers don't start (Workaround is to build the images on all swarm nodes)  
+
+Hit http://192.168.33.10:5000 and you can see the containers at the bottom keep changing (though round-robin is expected, currently it doesn't seem so)  
+
+## Build result service
+Step into results folder and execute `docker build --no-cache -t result -f Dockerfile .`  
+`docker service create --replicas 2 --name result -p 5001:80/tcp result:latest nodemon --debug server.js` This will create 2 tasks for the service result and distributes across the swarm  
+
+Hit http://192.168.33.10:5001 and you can see the containers at the bottom keep changing
 
 
 
