@@ -90,7 +90,7 @@ Assuming the swarm is up and running with 2 managers and 1 worker node as above
 ## Build and start vote service
 Step into vote folder and execute `docker build --no-cache -t vote -f Dockerfile.`  
 
-`docker service create --replicas 3 --name vote -p 5000:80 -v ./vote:/app vote:latest python app.py` This will create 3 tasks for the service vote and distributes it across the swarm. There is currently a bug with 1.12.0-rc4, where if the vote image is not available on swarm nodes, then the containers don't start (Workaround is to build the images on all swarm nodes)  
+`docker service create --replicas 3 --name vote -p 5000:80 vote:latest python app.py` This will create 3 tasks for the service vote and distributes it across the swarm. There is currently a bug with 1.12.0-rc4, where if the vote image is not available on swarm nodes, then the containers don't start (Workaround is to build the images on all swarm nodes)  
 
 Hit http://192.168.33.10:5000 and you can see the containers at the bottom keep changing (though round-robin is expected, currently it doesn't seem so)  
 
