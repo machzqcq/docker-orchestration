@@ -98,7 +98,18 @@ Hit http://192.168.33.10:5000 and you can see the containers at the bottom keep 
 Step into results folder and execute `docker build --no-cache -t result -f Dockerfile .`  
 `docker service create --replicas 2 --name result -p 5001:80/tcp result:latest nodemon --debug server.js` This will create 2 tasks for the service result and distributes across the swarm  
 
-Hit http://192.168.33.10:5001 and you can see the containers at the bottom keep changing
+Hit http://192.168.33.10:5001 and you can see the containers at the bottom keep changing  
+
+# Visualize
+
+I found cAdvisor from Google and weave Scope to be good enough for a developer's needs. Containers launched on multiple hosts however require a bit more networking solutions like weavenet+weavescope, where weavenet is commercial. That said, the relatively open and free ones are also there to get us started.  
+
+```
+sudo curl -L git.io/scope -o /usr/local/bin/scope
+sudo chmod a+x /usr/local/bin/scope
+scope launch
+```  
+
 
 
 
