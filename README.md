@@ -3,12 +3,13 @@ Read [here] (https://blog.docker.com/2016/07/docker-built-in-orchestration-ready
 
 ![Docker Swarm](https://github.com/machzqcq/docker-orchestration/blob/master/images/docker-swarm.png)   
 
-Get latest docker engine 1.12 from [here](https://github.com/docker/docker/releases).
+If you already have docker hosts (at least 3 hosts) set up , then just get the engine from [here](https://github.com/docker/docker/releases). If NOT, continue reading.
 
 # How to setup
 
 - Install Vagrant 
 - git clone this repo
+- cd <repo>
 - vagrant up  
 
 From terminal, type `vagrant status`. This should show 3 nodes - smgr, snode1, snode2. The 's' stands for swarm  
@@ -43,9 +44,9 @@ Server:
 
 # Swarm Creation
 
-- `vagrant@smgr:~$ docker swarm init --auto-accept worker,manager --listen-addr 192.168.33.10:2377` - copy the random secret
-- `vagrant@snode1:~$ docker swarm join --secret 00u92trlm9u9hpcwxpcu7f9km --manager --listen-addr 192.168.33.20:2377 192.168.33.10:2377` - Join a manager
-- `vagrant@snode2:~$ docker swarm join --secret 00u92trlm9u9hpcwxpcu7f9km --listen-addr 192.168.33.30:2377 192.168.33.10:2377` - Join as worker  
+- `vagrant@smgr:~$ docker swarm init --auto-accept worker,manager --listen-addr 192.168.33.10:2377` - copy the <random_secret>
+- `vagrant@snode1:~$ docker swarm join --secret <random_secret> --manager --listen-addr 192.168.33.20:2377 192.168.33.10:2377` - Join a manager
+- `vagrant@snode2:~$ docker swarm join --secret <random_secret> --listen-addr 192.168.33.30:2377 192.168.33.10:2377` - Join as worker  
 
 This will create a 3 node swarm cluster, with 2 managers (one being leader) and one worker.  
 `docker swarm --help` Practice other sub commands for swarm for eg. inspect  
