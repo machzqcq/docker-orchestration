@@ -101,7 +101,7 @@ Hit http://192.168.33.10:5000 and you can see the containers at the bottom keep 
 Step into results folder and execute `docker build --no-cache -t result -f Dockerfile .`  
 `docker service create --replicas 2 --name result -p 5001:80/tcp result:latest nodemon --debug server.js` This will create 2 tasks for the service result and distributes across the swarm  
 
-Hit http://192.168.33.10:5001 and you can see the containers at the bottom keep changing  
+Hit http://192.168.33.10:5001 and you can see the container ids at the bottom of the screen keep changing  
 
 # Visualize
 
