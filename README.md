@@ -76,10 +76,10 @@ Test the failover by doing `vagrant halt snode1` for e.g. of course assuming tha
 Assuming the swarm is up and running with 2 managers and 1 worker node as above  
 
 ### example voting app
-`git clone https://github.com/docker/example-voting-app.git` See the micro-service app architecture on the README for the repo  
+`git clone https://github.com/machzqcq/example-voting-app.git` See the micro-service app architecture on the README for the repo  
 
 ## Build and start db service
-`docker service create --replicas 1 --name db -p 5432:5432/tcp postgres:9.4` - Verify `netstat -aln | grep 5432`  
+`docker service create --replicas 1 --name db -p 5432:5432/tcp postgres:9.4` - Verify `netstat -aln | grep 5432` Should get back the postgres service as listening  
 
 ## Build and start redis service
 `docker service create --name redis -p 6379:6379/tcp redis:3.2.1-alpine` - Verify `netstat -aln | grep 6379`  
