@@ -3,7 +3,40 @@ Official Docker Blog read [here] (https://blog.docker.com/2016/07/docker-built-i
 
 ![Docker Swarm](https://github.com/machzqcq/docker-orchestration/blob/master/images/docker-swarm.png)   
 
-If you already have docker hosts (at least 3 hosts) set up , then just get the engine from [here](https://github.com/docker/docker/releases). If NOT, continue reading.
+If you already have docker hosts (at least 3 hosts) set up , then just get the engine from [here](https://github.com/docker/docker/releases). If NOT, continue reading.  
+
+
+## CLUSTER TOPOLOGY
+
+### Node
+Fudamental unit of a swarm. 2 types - manager & workers. Swarm is created by churning multiple nodes. Node is any machine that runs Docker 1.12  
+
+### Communication Protocol
+Manager nodes communicate in a protocol called "raft", allowing them exchange information with strong consistency. Workers communicate with "gossip", allows them to share information bulk. Though it is eventual consistent, the information is shared very fast and allows workers to scale massively.  
+
+Managers and workers communicate using another protocol called "jrpc" (json rpc over websockets). It is build on http2, so it allows to communicate with internet very easily, so it works through proxy's etc. Also this protocol is versioned, so different versions of workers can talk to managers easily. Typical cluster has 3,5 or 7 max. manager.
+
+### Role
+The role of a node is not static, we can promote or demote as needed.
+
+### KV Store in Quorum
+KV Store is embedded within, no need to setup a separate one, so no dependency on external infra. A side effect is that they communicate with embedded TLS, so no separate security infra is needed. The embedded store massively improves performance. Every single manager has the entire desired state cached in memory, enabling them to make fast decisions.  
+
+
+### Security &  TLS
+Every node in the swarm is identified by a Cryptographic Identity that is signed by a central authority and centrally managed. There is no way that one node can assume identify of other node without us noticing.
+
+- Every manager has CA built in.
+- A new node needs a join token to join the swarm. It contains the fingerprint of swarm CA and some encoded information. So the worker can trust that it is joining the right entity. The token contains a secret , so that the manager can trust the worker is currently joining is authorized to join the swarm.
+- The worker will generate a cert and give it to manager. The manager will sign it and give it back to the worker and from there on the trust relationship is established.
+- Appro. every 3 months, the certs expire. Few weeeks before it expires, the worker generates new certs and then send it to manager for signing, once it gets back, swaps out the old one with new one
+
+
+## ORCHESTRATION
+
+
+
+
 
 # How to setup
 
