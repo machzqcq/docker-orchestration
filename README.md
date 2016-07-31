@@ -5,6 +5,17 @@ Official Docker Blog read [here] (https://blog.docker.com/2016/07/docker-built-i
 
 If you already have docker hosts (at least 3 hosts) set up , then just get the engine from [here](https://github.com/docker/docker/releases). If NOT, continue reading.  
 
+## Key Points
+
+- No external data store required
+- Secure by default (* barring some issues)
+- Automated Key rotation
+- Rolling updates (for e.g. new versionsn of api's etc.)
+- Health Checks
+- Container-native load balancing  
+
+Btw - batteries included (at the heart of docker always)
+
 
 ## CLUSTER TOPOLOGY
 
