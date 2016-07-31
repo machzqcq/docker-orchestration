@@ -14,7 +14,7 @@ Fudamental unit of a swarm. 2 types - manager & workers. Swarm is created by chu
 ### Communication Protocol
 Manager nodes communicate in a protocol called "raft", allowing them exchange information with strong consistency. Workers communicate with "gossip", allows them to share information bulk. Though it is eventual consistent, the information is shared very fast and allows workers to scale massively.  
 
-Managers and workers communicate using another protocol called "jrpc" (json rpc over websockets). It is build on http2, so it allows to communicate with internet very easily, so it works through proxy's etc. Also this protocol is versioned, so different versions of workers can talk to managers easily. Typical cluster has 3,5 or 7 max. manager.
+Managers and workers communicate using another protocol called [gRPC](http://www.grpc.io/docs/). It is build on http2, so it allows to communicate with internet very easily, so it works through proxy's etc. Also this protocol is versioned, so different versions of workers can talk to managers easily. Typical cluster has 3,5 or 7 max. manager.
 
 ### Role
 The role of a node is not static, we can promote or demote as needed.
