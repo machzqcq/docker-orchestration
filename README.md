@@ -34,7 +34,7 @@ Every node in the swarm is identified by a Cryptographic Identity that is signed
 
 ## ORCHESTRATION
 
-
+![Swarm Orchestration](https://github.com/machzqcq/docker-orchestration/blob/master/images/Swarm-orchestration-flow.png)
 
 
 
