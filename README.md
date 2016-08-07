@@ -1,4 +1,4 @@
-# Docker 1.12 swarm applied to a composite applications
+# Docker 1.12 swarm applied to composite applications
 Official Docker Blog read [here](https://blog.docker.com/2016/07/docker-built-in-orchestration-ready-for-production-docker-1-12-goes-ga/)  
 
 ![Docker Swarm](https://github.com/machzqcq/docker-orchestration/blob/master/images/docker-swarm.png)   
@@ -56,7 +56,14 @@ Every node in the swarm is identified by a Cryptographic Identity that is signed
 
 ## ORCHESTRATION
 
-![Swarm Orchestration](https://github.com/machzqcq/docker-orchestration/blob/master/images/Swarm-orchestration-flow.png)
+![Swarm Orchestration](https://github.com/machzqcq/docker-orchestration/blob/master/images/Swarm-orchestration-flow.png)  
+
+- User declares the DESIRED STATE of application
+- Swarm API accepts the definition and stores the state 
+- The orchestrator reconciles between the DESIRED STATE and ACTUAL STATE of the application
+- Orchestrator passes the reconciliation plan to scheduler to go implement the DESIRED STATE
+- Scheduler assigns the implementation plan to Dispatcher
+- Dispatcher passes the tasks to the worker nodes (managers can be workers too) in the swarm, that rebalances the swarm to reach DESIRED STATE
 
 
 
