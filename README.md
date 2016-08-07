@@ -3,8 +3,6 @@ Official Docker Blog read [here](https://blog.docker.com/2016/07/docker-built-in
 
 ![Docker Swarm](https://github.com/machzqcq/docker-orchestration/blob/master/images/docker-swarm.png)   
 
-If you already have 3 machines (at least 3 hosts) set up , then just get the docker-engine from [here](https://github.com/docker/docker/releases) and install it on each of the hosts. If you got that already, continue reading  
-
 # What can you expect 
 
 - Learn to set up a docker swarm (understand terminology and relate to docker swarm implementation). Let swarm manage TLS, certificates, load balancing and key rotation etc.
@@ -15,6 +13,15 @@ If you already have 3 machines (at least 3 hosts) set up , then just get the doc
 - Test rolling deployments (upgrade components of your application without without blackout windows i.e. zeror downtime to customers accessing your application even when updating apps)
 - Take [example-voting-app](https://github.com/machzqcq/example-voting-app.git), a micro-service application with UI, api, worker, db micro-services and swarm it
 - Application Monitoring and Visualization -  I found it very helpful to run [cAdvisor](https://github.com/google/cadvisor) or [weaveScope](https://github.com/weaveworks/scope) and visualize the swarm, containers, hosts as they come up and go down
+
+# Assumptions
+
+- Know fundamental docker concepts - docker client, api and engine commands and sub-commands
+- Know how to operate and manage virtualbox images (using vagrant)
+- Intermediate *nix knowledge - ssh, navigate, start stop services, file i/o etc.
+- yaml format (and the sensitivity to spaces)
+- Done at least some ops/sysadmin work in the past and knows fundamentals of distributed systems (horizontal scaling, application deployments on distributed systems etc. )
+- Willingness to try and NOT give up on initial failures (aka. look up online and fix simple glitches that might be specific to your network, hardware, software setup)
 
 ## Key Points for Swarm in 1.12
 
