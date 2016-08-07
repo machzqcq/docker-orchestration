@@ -1,4 +1,4 @@
-# Docker 1.12 swarm concepts
+# Docker 1.12 swarm applied to a composite applications
 Official Docker Blog read [here](https://blog.docker.com/2016/07/docker-built-in-orchestration-ready-for-production-docker-1-12-goes-ga/)  
 
 ![Docker Swarm](https://github.com/machzqcq/docker-orchestration/blob/master/images/docker-swarm.png)   
@@ -7,9 +7,12 @@ If you already have 3 machines (at least 3 hosts) set up , then just get the doc
 
 # What can you expect 
 
-- Learn to set up a docker swarm (understand terminology and relate to docker swarm implementation)
-- Take a micro-service application and swarm it (aka. let docker swarm handle fault tolerance and load balancing of your application composed as services)
+- Learn to set up a docker swarm (understand terminology and relate to docker swarm implementation). Let swarm manage TLS, certificates, load balancing and key rotation etc.
+- Specify DESIRED STATE of your COMPOSITE APPLICATION and let SWARM handle the complexities of bringing it up for you (of course as long as you have dockerized your application following best practices)
+- We use Virtualbox and Vagrant to simulate swarm and deploy application on top of it , however the examples below have been tested on AWS EC2 cluster service, docker data center etc.
+- Take a composite-service(including micro-services) application and swarm it (aka. deploy your application to docker swarm)
 - Test failover
+- Test rolling deployments (upgrade components of your application without without blackout windows i.e. zeror downtime to customers accessing your application even when updating apps)
 - Take [example-voting-app](https://github.com/machzqcq/example-voting-app.git), a micro-service application with UI, api, worker, db micro-services and swarm it
 - Application Monitoring and Visualization -  I found it very helpful to run [cAdvisor](https://github.com/google/cadvisor) or [weaveScope](https://github.com/weaveworks/scope) and visualize the swarm, containers, hosts as they come up and go down
 
@@ -192,9 +195,3 @@ sudo curl -L git.io/scope -o /usr/local/bin/scope
 sudo chmod a+x /usr/local/bin/scope
 scope launch
 ```  
-
-
-
-
-
-
