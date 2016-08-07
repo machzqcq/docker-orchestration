@@ -34,7 +34,6 @@ Btw - batteries included (at the heart of docker always)
 
 ## CLUSTER TOPOLOGY
 
-![Docker Swarm](https://github.com/machzqcq/docker-orchestration/blob/master/images/docker-swarm.png)  
 
 ### Node (manager and worker)
 Fudamental unit of a swarm. 2 types - manager & workers. Swarm is created by churning multiple nodes. Node is any machine that runs Docker 1.12  
