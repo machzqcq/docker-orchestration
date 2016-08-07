@@ -1,6 +1,3 @@
-# Docker 1.12 swarm applied to composite applications
-Official Docker Blog read [here](https://blog.docker.com/2016/07/docker-built-in-orchestration-ready-for-production-docker-1-12-goes-ga/)  
-
 ![Docker Swarm](https://github.com/machzqcq/docker-orchestration/blob/master/images/docker-swarm.png)   
 
 # What can you expect 
@@ -37,7 +34,9 @@ Btw - batteries included (at the heart of docker always)
 
 ## CLUSTER TOPOLOGY
 
-### Node
+![Docker Swarm](https://github.com/machzqcq/docker-orchestration/blob/master/images/docker-swarm.png)  
+
+### Node (manager and worker)
 Fudamental unit of a swarm. 2 types - manager & workers. Swarm is created by churning multiple nodes. Node is any machine that runs Docker 1.12  
 
 ### Communication Protocol
@@ -208,4 +207,8 @@ I found cAdvisor from Google and weave Scope to be good enough for a developer's
 sudo curl -L git.io/scope -o /usr/local/bin/scope
 sudo chmod a+x /usr/local/bin/scope
 scope launch
-```  
+```    
+
+# Docker Swarm 
+
+Official Docker Blog read [here](https://blog.docker.com/2016/07/docker-built-in-orchestration-ready-for-production-docker-1-12-goes-ga/)
