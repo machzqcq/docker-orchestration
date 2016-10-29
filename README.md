@@ -145,6 +145,7 @@ docker@node1:~$ docker service create \
 
 - Then access the UI as http://192.168.99.100:8080  
 
+![Swarm Visualizer](https://github.com/machzqcq/docker-orchestration/blob/master/images/swarm-visualizer.png)
 
 
 
