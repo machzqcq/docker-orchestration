@@ -70,9 +70,69 @@ Every node in the swarm is identified by a Cryptographic Identity that is signed
 - Scheduler assigns the implementation plan to Dispatcher
 - Dispatcher passes the tasks to the worker nodes (managers can be workers too) in the swarm, that rebalances the swarm to reach DESIRED STATE
 
+## Quick Start (using docker-machine)
+There is a more elaborate set up after this section, however you can quickly get started as below.
+
+- `for N in 1 2 3 4 5; do docker-machine create --driver virtualbox node$N; done` - will start 5 virtual machines that uses busybox image and docker already present as part of the image
+- Here is how it looks
+```
+pradeep@seleniumframework.com$ docker-machine ls
+NAME    ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER    ERRORS
+node1   -        virtualbox   Running   tcp://192.168.99.100:2376           v1.12.2
+node2   -        virtualbox   Running   tcp://192.168.99.101:2376           v1.12.2
+node3   -        virtualbox   Running   tcp://192.168.99.102:2376           v1.12.2
+node4   -        virtualbox   Running   tcp://192.168.99.103:2376           v1.12.2
+node5   -        virtualbox   Running   tcp://192.168.99.104:2376           v1.12.2
+```  
+
+- `docker-machine ssh node1` - step into one of the nodes
+- Initialize swarm
+```
+docker swarm init --advertise-addr 192.168.99.100 
+Swarm initialized: current node (ddec2zwjaes2kpkmnshkmpstq) is now a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join \
+    --token SWMTKN-1-3jv31q64ofkl3j20d8lxeq2eejyhcde7h1o25p6c0i1b1a2e3x-az1nzpiuxaa1ny8te8yocnv3i \
+    192.168.99.100:2377
+    
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+```  
+
+- Exit from node1 and `docker-machine ssh node2`  
+- Join node2 as worker
+```
+docker swarm join \
+    --token SWMTKN-1-3jv31q64ofkl3j20d8lxeq2eejyhcde7h1o25p6c0i1b1a2e3x-az1nzpiuxaa1ny8te8yocnv3i \
+    192.168.99.100:2377
+```  
+
+- Join other nodes
+```
+for NODE in node3 node4 node5; do
+  docker-machine ssh $NODE docker swarm join \
+    --token SWMTKN-1-3jv31q64ofkl3j20d8lxeq2eejyhcde7h1o25p6c0i1b1a2e3x-az1nzpiuxaa1ny8te8yocnv3i \
+    192.168.99.100:2377
+done
+```   
+
+- Promote node2 and node 3 - `docker node promote node2 node3 ` - so that we have 3 manager nodes, which is the recommended cluster with fault tolerance
+
+- Type `docker node ls` from node1 and it looks something like this, where one of the 3 managers is master and rest are workers
+```
+docker@node1:~$ docker node ls
+ID                           HOSTNAME  STATUS  AVAILABILITY  MANAGER STATUS
+4pq9ixqwt3j1kn0zjwew009cl    node3     Ready   Active        Reachable
+4y1rx2xskffge1eabydvenu8r    node2     Ready   Active        Leader
+894ntux8vmz3j9bblg44d4ffx    node5     Ready   Active
+ba212hjrtmbtbk96ixxxbjh46    node4     Ready   Active
+e0253fetpvgcrqhnsz942uu98 *  node1     Ready   Active        Reachable
+```  
 
 
-# How to setup
+# How to setup (USING VAGRANT)
 
 - Install Vagrant 
 - git clone this repo
@@ -111,7 +171,7 @@ Server:
 
 # Swarm Creation
 
-- `vagrant@smgr:~$ docker swarm init --auto-accept worker,manager --listen-addr 192.168.33.10:2377` - copy the <random_secret>
+- `vagrant@smgr:~$ docker swarm init --auto-accept worker,manager --listen-addr 192.168.33.10:2377` - copy the random_secret
 - `vagrant@snode1:~$ docker swarm join --secret <random_secret> --manager --listen-addr 192.168.33.20:2377 192.168.33.10:2377` - Join a manager
 - `vagrant@snode2:~$ docker swarm join --secret <random_secret> --listen-addr 192.168.33.30:2377 192.168.33.10:2377` - Join as worker  
 
