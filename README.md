@@ -131,6 +131,22 @@ ba212hjrtmbtbk96ixxxbjh46    node4     Ready   Active
 e0253fetpvgcrqhnsz942uu98 *  node1     Ready   Active        Reachable
 ```  
 
+- Use swarm visualizer (open source project)
+```
+docker@node1:~$ docker run -it -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock manomarks/visualizer
+docker@node1:~$ docker service create \
+>   --name=viz \
+>   --publish=8080:8080/tcp \
+>   --constraint=node.role==manager \
+>   --mount=type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
+>   manomarks/visualizer
+2e0f44sqgxybsm6behumsbu2b
+```  
+
+- Then access the UI as http://192.168.99.100:8080  
+
+
+
 
 # How to setup (USING VAGRANT)
 
