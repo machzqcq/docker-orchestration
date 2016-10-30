@@ -149,6 +149,19 @@ docker@node1:~$ docker service create \
 
 
 
+# Concepts explained in Video
+Watch [this](https://vimeo.com/189520997) &  [this](https://vimeo.com/189543080) video for full demonstration of the below concepts  
+
+- CREATE SERVICE ON SWARM
+- LIST TASKS (CONTAINERS/INSTANCES) OF SERVICE
+- PUBLISH PORTS
+- RECONCILIATION OF DESIRED STATE
+- SCALING UP/DOWN
+- ROLLING UPDATES/DEPLOYMENTS
+- GLOBAL SERVICES
+- FAULT TOLERANCE
+- SERVICE DISCOVERY & LOAD  BALANCING
+
 # How to setup (USING VAGRANT)
 
 - Install Vagrant 
